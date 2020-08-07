@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix src",
+    "start": "node src/index.js",
+    "start:dev": "DEBUG=express node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.1.1",
     "express": "^4.17.1"
   },
   "devDependencies": {
