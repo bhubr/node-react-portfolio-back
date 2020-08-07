@@ -12,7 +12,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Table `project`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `project` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(65) NULL,
   `description` VARCHAR(1000) NULL,
   `github_url` VARCHAR(150) NULL,
