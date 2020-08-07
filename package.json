@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --fix src",
     "start": "node src/index.js",
-    "start:dev": "DEBUG=express node src/index.js",
+    "start:dev": "DEBUG=express nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
   "devDependencies": {
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0"
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
   }
 }
