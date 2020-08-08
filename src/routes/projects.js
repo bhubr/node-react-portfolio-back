@@ -13,4 +13,20 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/', (req, res) => {
+  const insertQuery = 'INSERT INTO project SET ?';
+  db.query(insertQuery, [req.body], (errInsert, stats) => {
+    if (errInsert) {
+      return res.status(500).send({ error: errInsert.message });
+    }
+    const selectQuery = 'SELECT * FROM project WHERE id = ?';
+    return db.query(selectQuery, [stats.insertId], (errSelect, projects) => {
+      if (errSelect) {
+        return res.status(500).send({ error: errSelect.message });
+      }
+      return res.json(projects[0]);
+    });
+  });
+});
+
 module.exports = router;

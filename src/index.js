@@ -3,9 +3,10 @@ const express = require('express');
 const debug = require('debug');
 const api = require('./routes');
 
-const app = express();
 const log = debug('express');
 
+const app = express();
+app.use(express.json());
 app.use('/api', api);
 
 const port = process.env.PORT || 8000;
