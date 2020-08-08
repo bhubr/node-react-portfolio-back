@@ -1,5 +1,8 @@
 const express = require('express');
 const db = require('../db');
+const {
+  checkProjectRequiredFields, checkProjectUnknownFields,
+} = require('../validators/check-project-fields');
 
 const router = express.Router();
 
@@ -12,30 +15,6 @@ router.get('/', (req, res) => {
     return res.json(projects);
   });
 });
-
-const checkProjectRequiredFields = (req, res, next) => {
-  if (!req.body) {
-    return res.status(422).json({ error: 'Missing body' });
-  }
-  const requiredFields = ['name', 'description', 'picture_url', 'github_url'];
-  const missingFields = requiredFields.filter((field) => !req.body[field]);
-  if (missingFields.length > 0) {
-    return res.status(422).json({ error: `Missing fields: ${missingFields}` });
-  }
-  return next();
-};
-
-const checkProjectUnknownFields = (req, res, next) => {
-  const validFields = [
-    'name', 'description', 'picture_url', 'github_url', 'deploy_url', 'techno',
-  ];
-  const bodyFields = Object.keys(req.body);
-  const invalidFields = bodyFields.filter((field) => !validFields.includes(field));
-  if (invalidFields.length > 0) {
-    return res.status(422).json({ error: `Unknown fields: ${invalidFields}` });
-  }
-  return next();
-};
 
 router.post('/',
   checkProjectRequiredFields,
@@ -54,7 +33,6 @@ router.post('/',
         return res.status(201).json(projects[0]);
       });
     });
-  }
-);
+  });
 
 module.exports = router;
