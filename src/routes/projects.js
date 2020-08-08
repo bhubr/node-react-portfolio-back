@@ -1,7 +1,9 @@
 const express = require('express');
 const db = require('../db');
 const {
-  checkProjectRequiredFields, checkProjectUnknownFields,
+  checkProjectRequiredFields,
+  checkProjectUnknownFields,
+  removeRecordId,
 } = require('../validators/check-project-fields');
 
 const router = express.Router();
@@ -31,6 +33,30 @@ router.post('/',
           return res.status(500).send({ error: errSelect.message });
         }
         return res.status(201).json(projects[0]);
+      });
+    });
+  });
+
+router.put('/:projectId',
+  checkProjectRequiredFields,
+  removeRecordId,
+  checkProjectUnknownFields,
+  (req, res) => {
+    const updateQuery = 'UPDATE project SET ? WHERE id = ?';
+    const { projectId } = req.params;
+    db.query(updateQuery, [req.body, projectId], (errUpdate, stats) => {
+      if (errUpdate) {
+        return res.status(500).send({ error: errUpdate.message });
+      }
+      if (stats.affectedRows === 0) {
+        return res.status(404).send({ error: 'Project not found' });
+      }
+      const selectQuery = 'SELECT * FROM project WHERE id = ?';
+      return db.query(selectQuery, [projectId], (errSelect, projects) => {
+        if (errSelect) {
+          return res.status(500).send({ error: errSelect.message });
+        }
+        return res.status(200).json(projects[0]);
       });
     });
   });

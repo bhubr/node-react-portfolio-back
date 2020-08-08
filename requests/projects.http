@@ -9,3 +9,16 @@ Content-Type: application/json
   "picture_url": "https://via.placeholder.com/320x200",
   "github_url": "https://github.com"
 }
+
+### Update a project
+
+PUT http://localhost:8000/api/projects/6
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "Test project #3",
+  "description": "Look, I've just been updated!",
+  "picture_url": "https://via.placeholder.com/320x200?text=updated",
+  "github_url": "https://github.com"
+}

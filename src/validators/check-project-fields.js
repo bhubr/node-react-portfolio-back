@@ -38,7 +38,15 @@ const checkProjectUnknownFields = (req, res, next) => {
   return next();
 };
 
+const removeRecordId = (req, res, next) => {
+  if (req.body.id) {
+    delete req.body.id;
+  }
+  next();
+};
+
 module.exports = {
   checkProjectRequiredFields,
   checkProjectUnknownFields,
+  removeRecordId,
 };
