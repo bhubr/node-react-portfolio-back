@@ -1,0 +1,11 @@
+### Create a project
+
+POST http://localhost:8000/api/projects
+Content-Type: application/json
+
+{
+  "name": "Test project #1",
+  "description": "Nothing to see yet!",
+  "picture_url": "https://via.placeholder.com/320x200",
+  "github_url": "https://github.com"
+}
